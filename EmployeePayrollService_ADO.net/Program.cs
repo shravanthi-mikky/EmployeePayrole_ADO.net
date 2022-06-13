@@ -11,7 +11,7 @@ Employee_details employeeDetails = new Employee_details();
 
 while (true)
 {
-    Console.WriteLine("Choose the option :\n1)Create and retrieve values from Database\n2)Update salary\n3)Aggregate Operations\n4)Add Employee Details to Table");
+    Console.WriteLine("Choose the option :\n1)Create and retrieve values from Database\n2)Update salary\n3)Aggregate Operations\n4)Add Employee Details to Table\n5)Get Employee details Of Date Range");
     int option = Convert.ToInt16(Console.ReadLine());
     switch(option)
     {
@@ -52,6 +52,9 @@ while (true)
             employeeDetails.NetPay = 35000;
             employeeRepo.AddEmployee(employeeDetails);
             Console.WriteLine("Record is inserted successfully");
+            break;
+        case 5:
+            employeeRepo.GetEmployeedetailsOfDateRange();
             break;
         default:
             Console.WriteLine("Please choose the correct option");
