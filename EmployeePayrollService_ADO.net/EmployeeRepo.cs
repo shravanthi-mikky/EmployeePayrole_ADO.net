@@ -74,7 +74,8 @@ namespace EmployeePayrollService_ADO.net
             SqlConnection connection = new SqlConnection(@"Data Source=LAPTOP-2UH1FDRP\MSSQLSERVER01; Initial Catalog =PayrollServiceADO; Integrated Security = True;");
             connection.Open();
             SqlCommand command = new SqlCommand("update EmployeeDetails set BasicPay=3000000 where FirstName='Vishnu'", connection);
-
+            SqlCommand command2 = new SqlCommand("update EmployeeDetails set NetPay=3020000 where FirstName='Vishnu'", connection);
+            int effectedRow1 = command2.ExecuteNonQuery();
             int effectedRow = command.ExecuteNonQuery();
             if (effectedRow == 1)
             {
@@ -86,6 +87,61 @@ namespace EmployeePayrollService_ADO.net
             }
             connection.Close();
             return (employee_Details.BasicPay);
+        }
+        public int CountOfRows()
+        {
+            SqlConnection connection = new SqlConnection(@"Data Source=LAPTOP-2UH1FDRP\MSSQLSERVER01; Initial Catalog =PayrollServiceADO; Integrated Security = True;");
+            connection.Open();
+            string query = @"Select count(*) from EmployeeDetails where Gender='Male';";
+            SqlCommand cmd = new SqlCommand(query, connection);
+            object res = cmd.ExecuteScalar();
+            connection.Close();
+            int Count = (int)res;
+            return Count;
+        }
+        public int AverageOfSalary()
+        {
+            SqlConnection connection = new SqlConnection(@"Data Source=LAPTOP-2UH1FDRP\MSSQLSERVER01; Initial Catalog =PayrollServiceADO; Integrated Security = True;");
+            connection.Open();
+            string query = @"Select Avg(NetPay) from EmployeeDetails where Gender='Male';";
+            SqlCommand cmd = new SqlCommand(query, connection);
+            object res = cmd.ExecuteScalar();
+            connection.Close();
+            int NetPay = (int)res;
+            return NetPay;
+        }
+        public int SumOfSalary()
+        {
+            SqlConnection connection = new SqlConnection(@"Data Source=LAPTOP-2UH1FDRP\MSSQLSERVER01; Initial Catalog =PayrollServiceADO; Integrated Security = True;");
+            connection.Open();
+            string query = @"Select Sum(NetPay) from EmployeeDetails where Gender='Male';";
+            SqlCommand cmd = new SqlCommand(query, connection);
+            object res = cmd.ExecuteScalar();
+            connection.Close();
+            int Sum = (int)res;
+            return Sum;
+        }
+        public int MinimumOfSalary()
+        {
+            SqlConnection connection = new SqlConnection(@"Data Source=LAPTOP-2UH1FDRP\MSSQLSERVER01; Initial Catalog =PayrollServiceADO; Integrated Security = True;");
+            connection.Open();
+            string query = @"Select Min(NetPay) from EmployeeDetails where Gender='Male';";
+            SqlCommand cmd = new SqlCommand(query, connection);
+            object res = cmd.ExecuteScalar();
+            connection.Close();
+            int min = (int)res;
+            return min;
+        }
+        public int MaximumOfSalary()
+        {
+            SqlConnection connection = new SqlConnection(@"Data Source=LAPTOP-2UH1FDRP\MSSQLSERVER01; Initial Catalog =PayrollServiceADO; Integrated Security = True;");
+            connection.Open();
+            string query = @"Select Max(NetPay) from EmployeeDetails where Gender='Male';";
+            SqlCommand cmd = new SqlCommand(query, connection);
+            object res = cmd.ExecuteScalar();
+            connection.Close();
+            int max = (int)res;
+            return max;
         }
     }
 }
