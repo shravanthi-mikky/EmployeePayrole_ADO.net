@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -10,12 +12,12 @@ namespace EmployeePayrollService_ADO.net
     public class EmployeeRepo
     {
         SqlConnection connection = new SqlConnection(@"Data Source=LAPTOP-2UH1FDRP\MSSQLSERVER01; Initial Catalog =PayrollServiceADO; Integrated Security = True;");
+        Employee_details employee_Details = new Employee_details();
 
         public void GetEmployeedetails()
         {
             try
             {
-                Employee_details employee_Details = new Employee_details();
                 using (this.connection)
                 {
                     string query = @"SELECT EmployeeID,FirstName,LastName,Gender,StartDate,Company,Departent,Address,BasicPay,Deductions,TaxablePay,IncomeTax,NetPay FROM EmployeeDetails";
@@ -60,8 +62,6 @@ namespace EmployeePayrollService_ADO.net
                     };
                     dr.Close();
                     this.connection.Close();
-
-
                 }
             }
             catch (Exception ex)
@@ -69,6 +69,23 @@ namespace EmployeePayrollService_ADO.net
                 Console.WriteLine(ex.Message);
             }
         }
+        public int updateSalary()
+        {
+            SqlConnection connection = new SqlConnection(@"Data Source=LAPTOP-2UH1FDRP\MSSQLSERVER01; Initial Catalog =PayrollServiceADO; Integrated Security = True;");
+            connection.Open();
+            SqlCommand command = new SqlCommand("update EmployeeDetails set BasicPay=3000000 where FirstName='Vishnu'", connection);
 
+            int effectedRow = command.ExecuteNonQuery();
+            if (effectedRow == 1)
+            {
+                string query = @"Select BasicPay from EmployeeDetails where FirstName='Vishnu';";
+                SqlCommand cmd = new SqlCommand(query, connection);
+                object res = cmd.ExecuteScalar();
+                connection.Close();
+                employee_Details.BasicPay = (int)res;
+            }
+            connection.Close();
+            return (employee_Details.BasicPay);
+        }
     }
 }
