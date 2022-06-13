@@ -11,7 +11,7 @@ Employee_details employeeDetails = new Employee_details();
 
 while (true)
 {
-    Console.WriteLine("Choose the option :\n1)Create and retrieve values from Database\n2)Update salary\n3)Aggregate Operations");
+    Console.WriteLine("Choose the option :\n1)Create and retrieve values from Database\n2)Update salary\n3)Aggregate Operations\n4)Add Employee Details to Table\n5)Get Employee details Of Date Range");
     int option = Convert.ToInt16(Console.ReadLine());
     switch(option)
     {
@@ -35,6 +35,26 @@ while (true)
             Console.WriteLine("Minimum of salaries is :" + minimum);
             int maximum = employeeRepo.MaximumOfSalary();
             Console.WriteLine("Maximum of salaries is :" + maximum);
+            break;
+        case 4:
+        
+            employeeDetails.FirstName = "Radha";
+            employeeDetails.LastName = "Krishna";
+            employeeDetails.Gender = "Male";
+            employeeDetails.StartDate = DateTime.Now;
+            employeeDetails.Company = "Amazon";
+            employeeDetails.Departent = "Marketing";
+            employeeDetails.Address = "Mumbai";
+            employeeDetails.BasicPay = 25000;
+            employeeDetails.Deductions = 1000;
+            employeeDetails.TaxablePay = 600;
+            employeeDetails.IncomeTax = 1200;
+            employeeDetails.NetPay = 35000;
+            employeeRepo.AddEmployee(employeeDetails);
+            Console.WriteLine("Record is inserted successfully");
+            break;
+        case 5:
+            employeeRepo.GetEmployeedetailsOfDateRange();
             break;
         default:
             Console.WriteLine("Please choose the correct option");
