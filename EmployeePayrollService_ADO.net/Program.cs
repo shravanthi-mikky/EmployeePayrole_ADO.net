@@ -11,7 +11,7 @@ Employee_details employeeDetails = new Employee_details();
 
 while (true)
 {
-    Console.WriteLine("Choose the option :\n1)Create and retrieve values from Database\n2)Update salary");
+    Console.WriteLine("Choose the option :\n1)Create and retrieve values from Database\n2)Update salary\n3)Aggregate Operations");
     int option = Convert.ToInt16(Console.ReadLine());
     switch(option)
     {
@@ -23,6 +23,18 @@ while (true)
             int salary = employeeRepo.updateSalary();
             Console.WriteLine(salary);
             employeeRepo.GetEmployeedetails();
+            break;
+        case 3:
+            int count = employeeRepo.CountOfRows();
+            Console.WriteLine("Count of Records :"+count);
+            int AverageSalary = employeeRepo.AverageOfSalary();
+            Console.WriteLine("Average salary is :"+AverageSalary);
+            int SumOfTheSalary = employeeRepo.SumOfSalary();
+            Console.WriteLine("Sum of salaries is :" + SumOfTheSalary);
+            int minimum = employeeRepo.MinimumOfSalary();
+            Console.WriteLine("Minimum of salaries is :" + minimum);
+            int maximum = employeeRepo.MaximumOfSalary();
+            Console.WriteLine("Maximum of salaries is :" + maximum);
             break;
         default:
             Console.WriteLine("Please choose the correct option");
