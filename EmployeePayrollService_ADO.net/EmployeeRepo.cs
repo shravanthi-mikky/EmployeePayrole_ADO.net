@@ -69,6 +69,63 @@ namespace EmployeePayrollService_ADO.net
                 Console.WriteLine(ex.Message);
             }
         }
+        //uc5
+        public void GetEmployeedetailsOfDateRange()
+        {
+            try
+            {
+                using (this.connection)
+                {
+                    string query = @"select * from EmployeeDetails where StartDate between cast('2020-01-01' as date) and CAST('2022-05-04' as date) ;";
+
+                    SqlCommand cmd = new SqlCommand(query, this.connection);
+
+                    this.connection.Open();
+
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        employee_Details.EmployeeID = dr.GetInt32(0);
+                        employee_Details.FirstName = dr.GetString(1);
+                        employee_Details.LastName = dr.GetString(2);
+                        employee_Details.Gender = dr.GetString(3);
+                        employee_Details.StartDate = dr.GetDateTime(4);
+                        employee_Details.Company = dr.GetString(5);
+                        employee_Details.Departent = dr.GetString(6);
+                        employee_Details.Address = dr.GetString(7);
+                        employee_Details.BasicPay = dr.GetInt32(8);
+                        employee_Details.Deductions = dr.GetInt32(9);
+                        employee_Details.TaxablePay = dr.GetInt32(10);
+                        employee_Details.IncomeTax = dr.GetInt32(11);
+                        employee_Details.NetPay = dr.GetInt32(12);
+
+
+                        Console.WriteLine("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12}",
+                        employee_Details.FirstName,
+                        employee_Details.LastName,
+                        employee_Details.Gender,
+                        employee_Details.StartDate,
+                        employee_Details.Company,
+                        employee_Details.Departent,
+                        employee_Details.Address,
+                        employee_Details.BasicPay,
+                        employee_Details.Deductions,
+                        employee_Details.TaxablePay,
+                        employee_Details.IncomeTax,
+                        employee_Details.EmployeeID,
+                        employee_Details.NetPay);
+
+                    };
+                    dr.Close();
+                    this.connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        //uc3
         public int updateSalary()
         {
             SqlConnection connection = new SqlConnection(@"Data Source=LAPTOP-2UH1FDRP\MSSQLSERVER01; Initial Catalog =PayrollServiceADO; Integrated Security = True;");
@@ -88,6 +145,7 @@ namespace EmployeePayrollService_ADO.net
             connection.Close();
             return (employee_Details.BasicPay);
         }
+        //Uc6
         public int CountOfRows()
         {
             SqlConnection connection = new SqlConnection(@"Data Source=LAPTOP-2UH1FDRP\MSSQLSERVER01; Initial Catalog =PayrollServiceADO; Integrated Security = True;");
@@ -143,5 +201,51 @@ namespace EmployeePayrollService_ADO.net
             int max = (int)res;
             return max;
         }
+        //uc2 add emploee details to database
+        public bool AddEmployee(Employee_details model)
+        {
+            SqlConnection connection = new SqlConnection(@"Data Source=LAPTOP-2UH1FDRP\MSSQLSERVER01; Initial Catalog =PayrollServiceADO; Integrated Security = True;");
+            // string connectionString = ConfigurationManager.ConnectionStrings["connection"].ConnectionString;
+            SqlCommand command = new SqlCommand("SpAddEmployeeDetails", this.connection);
+            try
+            {
+                using (this.connection)
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    //command.Parameters.AddWithValue("@EmployeeID", model.EmployeeID);
+                    command.Parameters.AddWithValue("@FirstName", model.FirstName);
+                    command.Parameters.AddWithValue("@LastName", model.LastName);
+                    command.Parameters.AddWithValue("@Gender", model.Gender);
+                    command.Parameters.AddWithValue("@StartDate", model.StartDate);
+                    command.Parameters.AddWithValue("@Company", model.Company);
+                    command.Parameters.AddWithValue("@Departent", model.Departent);
+                    command.Parameters.AddWithValue("@Address", model.Address);
+                    command.Parameters.AddWithValue("@BasicPay", model.BasicPay);
+                    command.Parameters.AddWithValue("@Deductions", model.Deductions);
+                    command.Parameters.AddWithValue("@TaxablePay", model.TaxablePay);
+                    command.Parameters.AddWithValue("@IncomeTax", model.IncomeTax);
+                    command.Parameters.AddWithValue("@NetPay", model.NetPay);
+
+                    this.connection.Open();
+                    var result = command.ExecuteNonQuery();
+                    if (result != 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+            return false;
+
+        }
+
     }
 }
