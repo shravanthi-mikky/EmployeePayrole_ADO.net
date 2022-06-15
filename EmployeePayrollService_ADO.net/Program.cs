@@ -11,7 +11,7 @@ Employee_details employeeDetails = new Employee_details();
 
 while (true)
 {
-    Console.WriteLine("Choose the option :\n1)Create and retrieve values from Database\n2)Update salary\n3)Aggregate Operations\n4)Add Employee Details to Table\n5)Get Employee details Of Date Range");
+    Console.WriteLine("Choose the option :\n1)Create and retrieve values from Database\n2)Update salary\n3)Aggregate Operations\n4)Add Employee Details to Table\n5)Get Employee details Of Date Range\n6)Operation With and without Threads");
     int option = Convert.ToInt16(Console.ReadLine());
     switch(option)
     {
@@ -55,6 +55,25 @@ while (true)
             break;
         case 5:
             employeeRepo.GetEmployeedetailsOfDateRange();
+            break;
+        case 6:
+            List<Employee_details2> employeeDetails2 = new List<Employee_details2>();
+            employeeDetails2.Add(new Employee_details2(EmployeeID: 2, FirstName: "Shravanthi", LastName: "Pabboji", Gender: "FeMale", StartDate: DateTime.Now, Company: "bridge Labs", Departent: "Development", Address: "Alwal", BasicPay: 20000, Deductions: 1000, TaxablePay: 200, IncomeTax: 180, NetPay: 25000));
+            employeeDetails2.Add(new Employee_details2(EmployeeID: 1, FirstName: "Vishnu", LastName: "vardhan", Gender: "Male", StartDate: DateTime.Now, Company: "bridge Labs", Departent: "Development", Address: "vijayawada", BasicPay: 20000, Deductions: 1000, TaxablePay: 200, IncomeTax: 180, NetPay: 25000));
+            employeeDetails2.Add(new Employee_details2(EmployeeID: 3, FirstName: "Roshni", LastName: "AdatRao", Gender: "FeMale", StartDate: DateTime.Now, Company: "bridge Labs", Departent: "Development", Address: "Pune", BasicPay: 20000, Deductions: 1000, TaxablePay: 200, IncomeTax: 180, NetPay: 25000));
+            employeeDetails2.Add(new Employee_details2(EmployeeID: 4, FirstName: "Viraj", LastName: "Jadhav", Gender: "Male", StartDate: DateTime.Now, Company: "bridge Labs", Departent: "Development", Address: "Pune", BasicPay: 20000, Deductions: 1000, TaxablePay: 200, IncomeTax: 180, NetPay: 25000));
+            employeeDetails2.Add(new Employee_details2(EmployeeID: 5, FirstName: "Puja", LastName: "Rana", Gender: "FeMale", StartDate: DateTime.Now, Company: "bridge Labs", Departent: "Development", Address: "Delhi", BasicPay: 20000, Deductions: 1000, TaxablePay: 200, IncomeTax: 180, NetPay: 25000));
+
+            OperationWithThread operationWIthThreads = new OperationWithThread();
+            DateTime StartdateTime = DateTime.Now;
+            operationWIthThreads.addEmployeeToPayRoll(employeeDetails2);
+            DateTime StopDataTime = DateTime.Now;
+            Console.WriteLine("Duration without Thread: " + (StopDataTime - StartdateTime));
+
+            DateTime StartdateTimeThread = DateTime.Now;
+            operationWIthThreads.addEmployeeToPayRollWithThread(employeeDetails2);
+            DateTime StopDataTimeThread = DateTime.Now;
+            Console.WriteLine("Duration with Thread: " + (StopDataTimeThread - StartdateTimeThread));
             break;
         default:
             Console.WriteLine("Please choose the correct option");
