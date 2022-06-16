@@ -7,11 +7,12 @@ Console.WriteLine("Welcome To Employee_Payroll ADO.NET !");
 
 EmployeeRepo employeeRepo = new EmployeeRepo();
 Employee_details employeeDetails = new Employee_details();
+OperationWithThread operationWIthThreads = new OperationWithThread();
 
 
 while (true)
 {
-    Console.WriteLine("Choose the option :\n1)Create and retrieve values from Database\n2)Update salary\n3)Aggregate Operations\n4)Add Employee Details to Table\n5)Get Employee details Of Date Range\n6)Operation With and without Threads");
+    Console.WriteLine("Choose the option :\n1)Create and retrieve values from Database\n2)Update salary\n3)Aggregate Operations\n4)Add Employee Details to Table\n5)Get Employee details Of Date Range\n6)Operation With and without Threads\n7)CountOfEmployee");
     int option = Convert.ToInt16(Console.ReadLine());
     switch(option)
     {
@@ -64,7 +65,6 @@ while (true)
             employeeDetails2.Add(new Employee_details2(EmployeeID: 4, FirstName: "Viraj", LastName: "Jadhav", Gender: "Male", StartDate: DateTime.Now, Company: "bridge Labs", Departent: "Development", Address: "Pune", BasicPay: 20000, Deductions: 1000, TaxablePay: 200, IncomeTax: 180, NetPay: 25000));
             employeeDetails2.Add(new Employee_details2(EmployeeID: 5, FirstName: "Puja", LastName: "Rana", Gender: "FeMale", StartDate: DateTime.Now, Company: "bridge Labs", Departent: "Development", Address: "Delhi", BasicPay: 20000, Deductions: 1000, TaxablePay: 200, IncomeTax: 180, NetPay: 25000));
 
-            OperationWithThread operationWIthThreads = new OperationWithThread();
             DateTime StartdateTime = DateTime.Now;
             operationWIthThreads.addEmployeeToPayRoll(employeeDetails2);
             DateTime StopDataTime = DateTime.Now;
@@ -74,6 +74,11 @@ while (true)
             operationWIthThreads.addEmployeeToPayRollWithThread(employeeDetails2);
             DateTime StopDataTimeThread = DateTime.Now;
             Console.WriteLine("Duration with Thread: " + (StopDataTimeThread - StartdateTimeThread));
+
+            break;
+        case 7:
+            int Count = operationWIthThreads.CountOfEmployee();
+            Console.WriteLine("Number of Employees added :"+Count);
             break;
         default:
             Console.WriteLine("Please choose the correct option");
