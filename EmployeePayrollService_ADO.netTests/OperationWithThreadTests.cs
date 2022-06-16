@@ -26,6 +26,14 @@ namespace EmployeePayrollService_ADO.net.Tests
             operationWIthThreads.addEmployeeToPayRoll(employeeDetails);
             DateTime StopDataTime = DateTime.Now;
             Console.WriteLine("Duration without Thread: " + (StopDataTime - StartdateTime));
+
+            // Calcuate time for multi-threading
+            DateTime StartdateTimeThread = DateTime.Now;
+            operationWIthThreads.addEmployeeToPayRollWithThread(employeeDetails);
+            DateTime StopDataTimeThread = DateTime.Now;
+            Console.WriteLine("Duration with Thread: " + (StopDataTimeThread - StartdateTimeThread));
+
+
         }
 
 

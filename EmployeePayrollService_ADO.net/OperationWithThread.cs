@@ -24,5 +24,21 @@ namespace EmployeePayrollService_ADO.net
         {
             EmployeeDetails.Add(emp);
         }
+
+        public void addEmployeeToPayRollWithThread(List<Employee_details2> employeeDetails)
+        {
+            employeeDetails.ForEach((employeeData) =>
+            {
+                DateTime StartdateTime = DateTime.Now;
+
+                Console.WriteLine("Employee being added:" + employeeData.FirstName);
+                this.addEmployeePayRoll(employeeData);
+                Console.WriteLine("Employee Added :" + employeeData.FirstName);
+
+                DateTime StopDataTime = DateTime.Now;
+                Console.WriteLine("Duration without Thread: " + (StopDataTime - StartdateTime));
+
+            });
+        }
     }
 }
