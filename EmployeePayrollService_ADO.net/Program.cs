@@ -68,10 +68,14 @@ while (true)
             DateTime StartdateTime = DateTime.Now;
             operationWIthThreads.addEmployeeToPayRoll(employeeDetails2);
             DateTime StopDataTime = DateTime.Now;
+            Console.WriteLine("Duration without Thread: " + (StopDataTime - StartdateTime));
+
 
             DateTime StartdateTimeThread = DateTime.Now;
             operationWIthThreads.addEmployeeToPayRollWithThread(employeeDetails2);
             DateTime StopDataTimeThread = DateTime.Now;
+            Console.WriteLine("Duration with Thread: " + (StopDataTimeThread - StartdateTimeThread));
+
             break;
         default:
             Console.WriteLine("Please choose the correct option");

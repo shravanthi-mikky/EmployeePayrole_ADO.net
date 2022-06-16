@@ -33,9 +33,6 @@ namespace EmployeePayrollService_ADO.net.Tests
             DateTime StopDataTimeThread = DateTime.Now;
             Console.WriteLine("Duration with Thread: " + (StopDataTimeThread - StartdateTimeThread));
 
-
         }
-
-
     }
 }
