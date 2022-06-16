@@ -43,5 +43,9 @@ namespace EmployeePayrollService_ADO.net
                 });
             });
         }
+        public int CountOfEmployee()
+        {
+            return EmployeeDetails.Count;
+        }
     }
 }
